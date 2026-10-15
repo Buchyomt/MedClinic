@@ -18,33 +18,36 @@ export default function Confirm() {
   const { role, user } = useAuth()
   const navigate = useNavigate()
 
-  if (role === 'pharmacist') {
+  if (role === 'pharmacist' || role === 'doctor') {
+    const isDoctor = role === 'doctor'
     return (
       <div className="w-full bg-slate-50 min-h-screen flex flex-col justify-center items-center p-6 text-center">
         <div className="max-w-md w-full bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-slate-100 dark:border-slate-700">
-          <div className="w-16 h-16 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto mb-5 shadow-inner">
+          <div className={`w-16 h-16 rounded-2xl ${isDoctor ? 'bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400' : 'bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400'} flex items-center justify-center mx-auto mb-5 shadow-inner`}>
             <ShieldAlert size={36} />
           </div>
 
-          <span className="text-[11px] font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 px-3 py-1 rounded-full border border-amber-200 dark:border-amber-800">
-            Pharmacist Account Active
+          <span className={`text-[11px] font-extrabold uppercase tracking-widest ${isDoctor ? 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 border-purple-200 dark:border-purple-800' : 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 border-amber-200 dark:border-amber-800'} px-3 py-1 rounded-full border`}>
+            {isDoctor ? 'Doctor / Specialist Account Active' : 'Pharmacist Account Active'}
           </span>
 
           <h2 className="text-xl font-black text-slate-900 dark:text-white mt-4 mb-2">
-            Self-Booking Restricted
+            Clinical Self-Booking Restricted
           </h2>
 
           <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-            You are logged in under your provider credential (<strong>{user?.name || 'Pharm. Chinedu Nwankwo'}</strong>).
-            Pharmacists monitor clinic flow, approve patient bookings, and dispense medication therapy. Self-booking is not permitted.
+            You are logged in under your provider credential (<strong>{user?.name || (isDoctor ? 'Physician' : 'Pharm. Chinedu Nwankwo')}</strong>).
+            {isDoctor
+              ? ' Medical doctors conduct consultations and issue digital prescriptions. Self-booking is not permitted.'
+              : ' Pharmacists monitor clinic flow, approve patient bookings, and dispense medication therapy. Self-booking is not permitted.'}
           </p>
 
           <div className="flex flex-col gap-3">
             <button
-              onClick={() => navigate('/dashboard')}
-              className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:scale-98 text-white rounded-xl font-bold text-xs shadow-lg shadow-emerald-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              onClick={() => navigate(isDoctor ? '/' : '/dashboard')}
+              className={`w-full py-3 px-4 ${isDoctor ? 'bg-purple-600 hover:bg-purple-700 shadow-purple-600/20' : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20'} active:scale-98 text-white rounded-xl font-bold text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer`}
             >
-              <span>Return to Command Center</span>
+              <span>{isDoctor ? 'Go to Doctor Portal & Queue' : 'Return to Command Center'}</span>
               <ArrowRight size={16} />
             </button>
 

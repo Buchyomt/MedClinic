@@ -2,10 +2,12 @@ import { API_BASE_URL } from '../config/api';
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useBooking } from '../context/BookingContext'
+import { useAuth } from '../context/AuthContext'
 import { Star, Loader2 } from 'lucide-react'
 
 export default function DoctorList({ searchQuery, selectedSpecialty }) {
   const { setSelectedDoctor } = useBooking();
+  const { role } = useAuth();
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -89,7 +91,7 @@ export default function DoctorList({ searchQuery, selectedSpecialty }) {
             </div>
             
             <div className="w-full bg-slate-50 dark:bg-slate-700/60 text-primary dark:text-blue-300 text-xs font-extrabold py-2 px-4 rounded-xl mt-auto text-center group-hover:bg-linear-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white transition-all shadow-sm">
-              View Profile & Book
+              {role === 'doctor' || role === 'pharmacist' ? 'View Specialist Profile' : 'View Profile & Book'}
             </div>
           </Link>
         ))}

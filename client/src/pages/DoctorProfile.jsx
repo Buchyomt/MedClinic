@@ -1,14 +1,16 @@
 import { API_BASE_URL } from '../config/api';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ChevronLeft, Star, Clock, MapPin, Award, Calendar, ShieldCheck } from 'lucide-react';
+import { ChevronLeft, Star, Clock, MapPin, Award, Calendar, ShieldCheck, Stethoscope } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';
+import { useAuth } from '../context/AuthContext';
 import BottomNav from '../components/BottomNav';
 
 export default function DoctorProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { setSelectedDoctor } = useBooking();
+  const { role } = useAuth();
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -177,13 +179,41 @@ export default function DoctorProfile() {
 
           {/* Book Button CTA Bar (Natural Page Flow above BottomNav) */}
           <div className="pt-2">
-            <button
-              onClick={handleBookNow}
-              className="w-full bg-linear-to-r from-primary to-cyan-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:brightness-105 active:scale-[0.99] transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
-            >
-              <Calendar size={18} />
-              Book Appointment with {doctor.name.replace(/^Dr\.\s*/i, 'Dr. ')}
-            </button>
+            {role === 'doctor' ? (
+              <div className="space-y-2">
+                <button
+                  onClick={() => navigate('/')}
+                  className="w-full bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+                >
+                  <Stethoscope size={18} />
+                  Go to Doctor Consultation Queue
+                </button>
+                <p className="text-[11px] text-center text-gray-400">
+                  Logged in as Specialist. Patient self-booking is disabled for clinical providers.
+                </p>
+              </div>
+            ) : role === 'pharmacist' ? (
+              <div className="space-y-2">
+                <button
+                  onClick={() => navigate('/dashboard')}
+                  className="w-full bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+                >
+                  <ShieldCheck size={18} />
+                  Return to Pharmacist Command Center
+                </button>
+                <p className="text-[11px] text-center text-gray-400">
+                  Logged in as Lead Pharmacist. Provider self-booking is disabled.
+                </p>
+              </div>
+            ) : (
+              <button
+                onClick={handleBookNow}
+                className="w-full bg-linear-to-r from-primary to-cyan-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:brightness-105 active:scale-[0.99] transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+              >
+                <Calendar size={18} />
+                Book Appointment with {doctor.name.replace(/^Dr\.\s*/i, 'Dr. ')}
+              </button>
+            )}
           </div>
         </div>
       </div>
