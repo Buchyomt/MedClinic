@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "Inter", "Outfit", sans-serif;
+  
+  --color-primary-light: #e0f2fe;
+  --color-primary: #1d4ed8;
+  --color-primary-dark: #1e40af;
+  --color-accent: #22c55e;
+  --color-accent-purple: #dcfce7;
+}
+
+body {
+  background-color: #f0f8ff;
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+  color: #1f2937;
+}
+
+.dark body {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Hide scrollbar for DoctorList component */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@utility animate-in {
+  animation-duration: 200ms;
+  animation-fill-mode: both;
+}
+@utility fade-in {
+  animation-name: fadeIn;
+}
+@utility zoom-in-95 {
+  animation-name: zoomIn95;
+}
+@utility slide-in-from-top-5 {
+  animation-name: slideInTop5;
+}
+@utility slide-in-from-top-2 {
+  animation-name: slideInTop2;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes zoomIn95 {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInTop5 {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInTop2 {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
