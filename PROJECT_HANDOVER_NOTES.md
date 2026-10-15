@@ -61,7 +61,59 @@ When you restart your PC and open the project in the IDE:
 5. **Interprofessional Workflow Mapped**:
    - Full 5-pillar collaboration model between Doctors and the Pharmacist (e-Prescription routing, NAFDAC MAS authenticity counter-checking, MTM peer referrals back to doctors, shared patient health records, closed-loop refill adherence).
 
+6. **Doctor Portal Interactive Practice Analytics**:
+   - Upgraded all 4 analytics cards in `DoctorPortalHome.jsx` to interactive, responsive cards with hover micro-animations and dedicated modals:
+     - **Total Patients Seen (128)**: Opens the **Patient Clinical Registry Modal** with real-time search, demographic tags, clinical conditions, Onitsha neighborhoods, EMR status, and e-prescriptions history.
+     - **Patient Satisfaction (4.9 ★)**: Opens the **Patient Reviews Modal** with overall 4.9 rating, star distribution percentages (5-star: 91%), and verified patient reviews from GRA Onitsha, 3-3 Area, and Fegge.
+     - **Telemed Calls (42)**: Opens the **Telemedicine Hub & Logs Modal** showing average call length, stability rating, past video/audio consult records, and a quick **"Launch Instant Virtual Telemed Room"** button.
+     - **Today's Queue**: Smoothly scrolls down to `#today-queue-section` with an eye-catching purple focus ring.
+7. **Production Deployment & CI/CD Readiness**:
+   - Initialized Git repository on `main` branch with clean initial commit.
+   - Configured `.gitignore` to safely guard secrets (`.env`), build artifacts, and dependencies.
+   - Added `client/vercel.json` for single-page application (SPA) client-side routing on Vercel.
+   - Centralized all 40+ client API requests through `client/src/config/api.js` (`API_BASE_URL`), allowing seamless transition between local development (`localhost:5000`) and production cloud hosting.
+
 ---
 
-## 📋 Next Planned Milestone
-- **Phase**: Presentation to Pharm. Chinedu Nwankwo & Deployment Preparation (cloud hosting for client and backend API).
+## 🌐 Continuous Deployment (GitHub → Vercel & Render)
+
+### Step 1: Push Local Git Repository to GitHub
+Create a new GitHub repository (e.g., `medclinic`) at [github.com/new](https://github.com/new), then run:
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/medclinic.git
+git push -u origin main
+```
+
+### Step 2: Deploy Backend to Render (Free Web Service)
+1. Log in to [render.com](https://render.com) and click **New +** $\rightarrow$ **Web Service**.
+2. Connect your `medclinic` GitHub repository.
+3. Configure:
+   - **Root Directory**: `server`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+4. Add Environment Variables (from your `server/.env`):
+   - `MONGO_URI`: `mongodb://buchychristen_db_user:...@cluster0...` *(Already connected to MongoDB Atlas!)*
+   - `EMAIL_USER`: `buchychristen@gmail.com`
+   - `EMAIL_PASS`: `iwll tpty nqtk yxjq`
+   - `JWT_SECRET`: `medclinic_secret_jwt_key_2026_super_secure`
+   - `GOOGLE_CLIENT_ID`: `534423448246-r2dpn2cuki4d329ejk7e57tam8ug8aem.apps.googleusercontent.com`
+5. Click **Create Web Service**. You will receive your live backend URL (e.g. `https://medclinic-server.onrender.com`).
+
+### Step 3: Deploy Frontend to Vercel (Free Next-Gen Hosting)
+1. Log in to [vercel.com](https://vercel.com) and click **Add New** $\rightarrow$ **Project**.
+2. Import your `medclinic` GitHub repository.
+3. Configure:
+   - **Root Directory**: `client`
+   - **Framework Preset**: Vite
+4. Add Environment Variable:
+   - `VITE_API_BASE_URL`: `https://your-backend-name.onrender.com`
+5. Click **Deploy**. In under 60 seconds you will receive your live production domain (e.g. `https://medclinic.vercel.app`)!
+
+### Step 4: Automatic Continuous Deployment (CI/CD)
+Whenever you make any change or bug fix in the code, simply run:
+```bash
+git add .
+git commit -m "Describe your update"
+git push
+```
+GitHub will automatically signal Vercel and Render to redeploy the live application within 60 seconds without downtime!
