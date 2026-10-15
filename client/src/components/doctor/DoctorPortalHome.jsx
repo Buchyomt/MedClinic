@@ -17,6 +17,8 @@ export default function DoctorPortalHome() {
   const [activePrescription, setActivePrescription] = useState(null)
   const [activeTelemed, setActiveTelemed] = useState(null)
   const [referralModal, setReferralModal] = useState(null)
+  const [activeModal, setActiveModal] = useState(null) // 'patients' | 'satisfaction' | 'telemed' | null
+  const [patientSearch, setPatientSearch] = useState('')
   const [toastMessage, setToastMessage] = useState('')
 
   const showToast = (msg) => {
@@ -61,9 +63,6 @@ export default function DoctorPortalHome() {
   )
 
   const doctorName = user?.name || 'Dr. Sarah Jenkins'
-
-  const [activeModal, setActiveModal] = useState(null) // 'patients' | 'satisfaction' | 'telemed' | null
-  const [patientSearch, setPatientSearch] = useState('')
 
   // Realistic sample patient clinical records for the doctor's registry
   const treatedPatientsList = [
