@@ -31,12 +31,17 @@ When you restart your PC and open the project in the IDE:
 ## 🏥 Key Pharmacy & Business Details
 
 - **Lead Pharmacist**: Pharm. Chinedu Nwankwo (PCN Reg # `PCN-88421`)
-- **Facility**: Your Health Pharmacy, 1 Nwankwo Chinedu Crescent, off Ogbatuluenyi Drive, GRA Federal Housing Estate, Onitsha
-- **Official WhatsApp / Phone**: `+234 702 505 1669` (Direct link: `https://wa.me/2347025051669`)
+- **Facility**: Your Health Diagnostic Centre Ltd & Your Health Pharmacy
+- **Registered Premises**: 1 Nwankwo Chinedu Crescent, Off Ogbatuluenyi Street, FHE 3-3, Onitsha, Anambra State
+- **Official Telephone Lines**:
+  - `0803 733 4924`
+  - `0702 505 1669` (Official WhatsApp & Line: `https://wa.me/2347025051669`)
+  - `0806 444 4654`
 - **Official Working Hours**:
   - **Monday to Saturday**: `7:00 AM – 9:00 PM`
   - **Sunday**: `12:00 PM – 9:00 PM`
-- **Coverage Areas**: GRA, 3-3 Area / Nkwelle Ezunaka, Fegge, Woliwo, Awka Road, Inland Town
+- **Coverage Areas**: FHE 3-3 Area, GRA, Nkwelle Ezunaka, Fegge, Woliwo, Awka Road, Inland Town
+- **Core Specialized Services**: Health & Vaccine Advocacy, Medicine Use & Safety (MTM), Pediatric/Adult/Geriatric Drug Safety, Terminal Illness Drug Care, Mental Health, Pregnant Women Drug Safety, Preventive Healthy Living.
 
 ---
 

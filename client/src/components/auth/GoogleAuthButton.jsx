@@ -119,6 +119,11 @@ export default function GoogleAuthButton({ role = 'patient', onSuccess, text = '
           {/* Official Google GSI Mount Target */}
           <div ref={btnRef} className="w-full flex justify-center [&>div]:w-full" />
 
+          {/* Privacy browser tip */}
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1.5 text-center leading-tight">
+            Using Brave or privacy mode? If Google hangs, toggle Shields OFF or use standard Email below.
+          </p>
+
           {/* Sleek styled fallback button if GSI button is waiting or needs custom trigger */}
           {(!clientId || clientId.includes('fakeclientid')) && (
             <button

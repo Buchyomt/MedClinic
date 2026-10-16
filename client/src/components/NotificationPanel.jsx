@@ -304,7 +304,7 @@ export default function NotificationPanel() {
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)}></div>
-          <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2">
+          <div className="fixed inset-x-3 top-16 sm:inset-x-auto sm:right-0 sm:top-auto sm:mt-3 w-auto sm:w-96 max-w-md sm:max-w-none mx-auto sm:mx-0 bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2">
             <div className="p-4 bg-slate-50 dark:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Bell size={18} className="text-primary dark:text-cyan-400" />

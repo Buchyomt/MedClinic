@@ -9,16 +9,17 @@ export const useFacility = () => {
 export const defaultPharmacyProfile = {
   id: 'facility-pharmacy-1',
   type: 'pharmacy', // 'pharmacy' | 'clinic'
-  name: 'Your Health Pharmacy',
+  name: 'Your Health Diagnostic Centre Ltd & Pharmacy',
   pharmacistName: 'Pharm. Chinedu Nwankwo',
-  pharmacistTitle: 'Lead Clinical Pharmacist & Pharmacy Director',
-  pharmacistBio: 'Licensed Clinical Pharmacist and founder of Your Health Pharmacy, delivering accessible and trusted pharmaceutical care to the Onitsha community. Specialising in Medication Therapy Management, chronic disease monitoring, and patient-centered prescription services.',
+  pharmacistTitle: 'Lead Clinical Pharmacist & Director',
+  pharmacistBio: 'Licensed Clinical Pharmacist and founder of Your Health Diagnostic Centre Ltd & Pharmacy, delivering accessible and trusted pharmaceutical care to the Onitsha community. Specialising in Medication Therapy Management, vaccine advocacy, drug safety, and patient-centered clinical care.',
   pharmacistImage: '/pharmacist-chinedu.jpg',
   pharmacistExperience: '12+ Years Licensed Experience',
   pharmacistRating: '4.97',
   pharmacistPatients: '2,000+ Patients Counseled',
-  address: '1 Nwankwo Chinedu Crescent, off Ogbatuluenyi Drive, GRA, Federal Housing Estate, Onitsha, Anambra State',
+  address: '1 Nwankwo Chinedu Crescent, Off Ogbatuluenyi Street, FHE 3-3, Onitsha, Anambra State',
   phone: '+234 702 505 1669',
+  phoneNumbers: ['0803 733 4924', '0702 505 1669', '0806 444 4654'],
   whatsappPhone: '2347025051669',
   email: 'info@yourhealthpharmacy.com',
   workingHours: 'Mon - Sat: 7:00 AM - 9:00 PM | Sunday: 12:00 PM - 9:00 PM',
@@ -26,8 +27,8 @@ export const defaultPharmacyProfile = {
   badges: [
     'Licensed PCN Registered Pharmacist (Reg # PCN-88421)',
     'Certified Medication Therapy Management Specialist',
-    'Clinical Chronic Disease Care & Diabetes Educator',
-    'Same-Day Prescription Dispensing Across Onitsha'
+    'Clinical Diagnostic Care & Vaccine Advocacy Centre',
+    'Same-Day Prescription Dispensing Across FHE 3-3, GRA & Onitsha'
   ],
   services: [
     {

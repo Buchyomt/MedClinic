@@ -7,10 +7,10 @@ import {
 export default function FacilityLocationCard() {
   const [copied, setCopied] = useState(false);
 
-  const address = '1 Nwankwo Chinedu Crescent, off Ogbatuluenyi Drive, GRA Federal Housing Estate, Onitsha, Anambra State';
+  const address = '1 Nwankwo Chinedu Crescent, Off Ogbatuluenyi Street, FHE 3-3, Onitsha, Anambra State';
   const phone = '+234 702 505 1669';
   const whatsappNumber = '2347025051669';
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('1 Nwankwo Chinedu Crescent GRA Onitsha Anambra State')}`;
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('1 Nwankwo Chinedu Crescent FHE 3-3 Onitsha Anambra State')}`;
 
   const copyAddress = () => {
     navigator.clipboard.writeText(address);
@@ -29,10 +29,10 @@ export default function FacilityLocationCard() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-black uppercase tracking-wider mb-2 border border-emerald-400/30">
             <Sparkles size={12} />
-            <span>Physical Dispensary & Clinical Consultation Hub</span>
+            <span>Diagnostic Centre & Clinical Pharmacy Hub</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white">
-            Your Health Pharmacy &bull; GRA Onitsha
+            Your Health Diagnostic Centre Ltd & Pharmacy
           </h3>
           <p className="text-xs text-slate-300 mt-1">
             Superintended by <strong>Pharm. Chinedu Nwankwo</strong> &bull; PCN Reg # PCN-88421
@@ -73,9 +73,9 @@ export default function FacilityLocationCard() {
             </button>
           </div>
           <p className="font-semibold text-slate-200 leading-relaxed">
-            1 Nwankwo Chinedu Crescent, off Ogbatuluenyi Drive, GRA Federal Housing Estate, Onitsha
+            1 Nwankwo Chinedu Crescent, Off Ogbatuluenyi Street, FHE 3-3, Onitsha
           </p>
-          <span className="text-[10px] text-slate-400 block">Fast courier coverage: GRA, Fegge, Woliwo, 3-3 & Inland Town</span>
+          <span className="text-[10px] text-slate-400 block">Fast courier coverage: FHE 3-3, GRA, Fegge, Woliwo, & Awka Road</span>
         </div>
 
         {/* Working Hours */}
@@ -98,27 +98,34 @@ export default function FacilityLocationCard() {
         <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
           <div className="flex items-center gap-1.5 text-emerald-400 font-bold uppercase text-[10px] tracking-wider">
             <Phone size={14} />
-            <span>Emergency & Inquiries</span>
+            <span>Official Phone & WhatsApp</span>
           </div>
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             <a 
               href={`https://wa.me/${whatsappNumber}`}
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 text-slate-200 hover:text-white font-bold"
             >
-              <MessageCircle size={14} className="text-emerald-400 shrink-0" />
-              <span>WhatsApp: +234 702 505 1669</span>
+              <MessageCircle size={13} className="text-emerald-400 shrink-0" />
+              <span>WhatsApp: 0702 505 1669</span>
             </a>
             <a 
-              href={`tel:${phone}`}
+              href="tel:08037334924"
               className="flex items-center gap-2 text-slate-300 hover:text-white font-medium"
             >
-              <Phone size={13} className="text-blue-400 shrink-0" />
-              <span>Call: +234 702 505 1669</span>
+              <Phone size={12} className="text-blue-400 shrink-0" />
+              <span>Line 1: 0803 733 4924</span>
+            </a>
+            <a 
+              href="tel:08064444654"
+              className="flex items-center gap-2 text-slate-300 hover:text-white font-medium"
+            >
+              <Phone size={12} className="text-cyan-400 shrink-0" />
+              <span>Line 2: 0806 444 4654</span>
             </a>
           </div>
-          <span className="text-[10px] text-slate-400 block pt-0.5">Direct line to Pharm. Chinedu's clinical desk</span>
+          <span className="text-[10px] text-slate-400 block pt-0.5">Direct lines to Diagnostic Centre & Pharmacy Desk</span>
         </div>
 
       </div>

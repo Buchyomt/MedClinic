@@ -109,14 +109,14 @@ export default function PrintableReceiptModal({ isOpen, onClose, data }) {
                   <div className="inline-block px-2.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-wider mb-1">
                     Licensed PCN Facility &bull; Reg # PCN-88421
                   </div>
-                  <h1 className="text-2xl font-black text-slate-900 tracking-tight">YOUR HEALTH PHARMACY</h1>
-                  <p className="text-xs font-extrabold text-emerald-700 mt-0.5">Clinical Outpatient Pharmacy & MTM Consultation Center</p>
+                  <h1 className="text-2xl font-black text-slate-900 tracking-tight">YOUR HEALTH DIAGNOSTIC CENTRE & PHARMACY</h1>
+                  <p className="text-xs font-extrabold text-emerald-700 mt-0.5">Clinical Outpatient Pharmacy & Diagnostic Center</p>
                   <p className="text-[11px] text-slate-600 mt-1 leading-snug">
-                    1 Nwankwo Chinedu Crescent, off Ogbatuluenyi Drive<br />
-                    GRA Federal Housing Estate, Onitsha, Anambra State
+                    1 Nwankwo Chinedu Crescent, Off Ogbatuluenyi Street<br />
+                    FHE 3-3, Onitsha, Anambra State
                   </p>
                   <p className="text-[11px] text-slate-600 font-semibold mt-0.5">
-                    Phone / WhatsApp: +234 702 505 1669 &bull; info@yourhealthpharmacy.com
+                    Tel: 0803 733 4924 &bull; WhatsApp: 0702 505 1669 &bull; 0806 444 4654
                   </p>
                 </div>
 

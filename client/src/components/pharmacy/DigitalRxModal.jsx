@@ -51,13 +51,13 @@ export default function DigitalRxModal({ prescription, onClose }) {
                 <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center">
                   <Pill size={18} />
                 </div>
-                <span>{prescription.facilityName || 'Your Health Pharmacy'}</span>
+                <span>{prescription.facilityName || 'Your Health Diagnostic Centre & Pharmacy'}</span>
               </div>
               <p className="text-xs text-gray-500 mt-1">
-                Licensed PCN Registered Pharmacy • GRA, Federal Housing Estate, Onitsha, Anambra State
+                Licensed PCN Registered Facility • 1 Nwankwo Chinedu Crescent, Off Ogbatuluenyi Street, FHE 3-3, Onitsha
               </p>
               <p className="text-[11px] text-gray-400">
-                Tel: +234 702 505 1669 • Email: info@yourhealthpharmacy.com
+                Tel: 0803 733 4924 • WhatsApp: 0702 505 1669 • 0806 444 4654
               </p>
             </div>
 
