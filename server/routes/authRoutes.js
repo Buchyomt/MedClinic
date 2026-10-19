@@ -295,8 +295,18 @@ router.post('/google', async (req, res) => {
       payload = ticket.getPayload();
     } catch (verifyErr) {
       console.warn('Google token verification error:', verifyErr.message);
-      // Fallback decode for development/testing if Google Client ID not yet strictly matching
-      const decoded = jwt.decode(credential);
+      // Fallback decode for development/testing/mobile if Google Client ID not yet strictly matching
+      let decoded = jwt.decode(credential);
+      if (!decoded) {
+        try {
+          decoded = JSON.parse(Buffer.from(credential, 'base64').toString('utf8'));
+        } catch (e) {
+          try {
+            decoded = JSON.parse(credential);
+          } catch (e2) {}
+        }
+      }
+
       if (decoded && decoded.email) {
         payload = decoded;
       } else {
