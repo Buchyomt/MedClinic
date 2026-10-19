@@ -186,9 +186,7 @@ export default function PatientDashboard() {
         </div>
 
         {/* Schedule list isolated strictly to this patient */}
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-xl">
-          <ScheduleList />
-        </div>
+        <ScheduleList />
       </div>
 
       {/* Quick Services & Pharmacy Hub Shortcuts */}

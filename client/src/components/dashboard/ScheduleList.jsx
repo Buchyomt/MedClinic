@@ -156,7 +156,7 @@ export default function ScheduleList({ searchTerm = '' }) {
   });
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-slate-700 h-full flex flex-col transition-colors">
+    <div className="bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-6 shadow-xl border border-slate-200 dark:border-slate-800 h-full flex flex-col transition-colors">
       
       {/* Toast Notification */}
       {toastMessage && (
@@ -169,19 +169,19 @@ export default function ScheduleList({ searchTerm = '' }) {
       )}
 
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-5 sm:mb-6">
         <div>
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white">Schedule</h3>
-          <p className="text-xs text-gray-400 dark:text-slate-400">
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">Schedule</h3>
+          <p className="text-[11px] sm:text-xs text-gray-400 dark:text-slate-400">
             {role === 'patient' ? `Appointments for ${user?.name || 'You'}` : role === 'doctor' ? `Patient queue for ${user?.name}` : 'Clinic Reception Master Schedule'}
           </p>
         </div>
-        <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">
+        <span className="text-[11px] sm:text-xs font-bold text-primary bg-primary/10 px-2.5 sm:px-3 py-1 rounded-full whitespace-nowrap">
           {filteredAppointments.length} {filteredAppointments.length === 1 ? 'appointment' : 'appointments'}
         </span>
       </div>
       
-      <div className="space-y-4 flex-1 overflow-y-auto">
+      <div className="space-y-3 sm:space-y-4 flex-1 overflow-y-auto">
         {loading && (
           <div className="flex justify-center p-8">
             <Loader2 className="animate-spin text-primary" size={28} />
@@ -189,7 +189,7 @@ export default function ScheduleList({ searchTerm = '' }) {
         )}
 
         {!loading && filteredAppointments.length === 0 && (
-          <div className="text-center py-10 px-4 bg-slate-50 dark:bg-slate-700/30 rounded-2xl border border-dashed border-gray-200 dark:border-slate-700">
+          <div className="text-center py-10 px-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-dashed border-gray-200 dark:border-slate-700">
             <CalendarPlus size={36} className="mx-auto text-gray-300 dark:text-slate-500 mb-3" />
             <h4 className="text-sm font-bold text-gray-800 dark:text-slate-200 mb-1">
               {role === 'patient' ? 'No appointments booked yet' : role === 'doctor' ? 'No patient consultations assigned yet' : 'No schedule entries found'}
@@ -215,107 +215,201 @@ export default function ScheduleList({ searchTerm = '' }) {
           <div key={apt._id} className="relative">
             {/* Appointment Card */}
             <div 
-              className={`flex items-center justify-between p-4 rounded-2xl cursor-pointer transition-all border relative z-10 ${expandedId === apt._id ? 'bg-slate-50 dark:bg-slate-700/60 border-primary/40 shadow-sm' : 'bg-white dark:bg-slate-800 border-gray-100 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600'}`}
+              className={`p-3.5 sm:p-4 rounded-2xl cursor-pointer transition-all border relative z-10 ${
+                expandedId === apt._id 
+                  ? 'bg-slate-50 dark:bg-slate-800/90 border-primary/40 shadow-sm' 
+                  : 'bg-white dark:bg-slate-800/70 border-gray-100 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700'
+              }`}
               onClick={() => setExpandedId(expandedId === apt._id ? null : apt._id)}
             >
               {expandedId === apt._id && (
                 <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-l-2xl"></div>
               )}
               
-              <div className="flex items-center gap-4 sm:gap-6 pl-2 flex-1 min-w-0">
-                <div className="w-16 shrink-0">
-                  <span className="text-[13px] font-bold text-gray-900 dark:text-white block leading-tight">{apt.time}</span>
-                  <span className="text-[10px] text-gray-400 dark:text-slate-400 block">{apt.date || 'Today'}</span>
+              {/* DESKTOP LAYOUT (sm:flex) */}
+              <div className="hidden sm:flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4 sm:gap-6 pl-2 flex-1 min-w-0">
+                  <div className="w-20 shrink-0">
+                    <span className="text-[13px] font-bold text-gray-900 dark:text-white block leading-tight">{apt.time}</span>
+                    <span className="text-[10px] text-gray-400 dark:text-slate-400 block">{apt.date || 'Today'}</span>
+                  </div>
+                  
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-[14px] font-bold text-gray-900 dark:text-white leading-tight mb-0.5 truncate">{apt.patientName || 'Patient'}</h4>
+                    <p className="text-[11px] text-gray-500 dark:text-slate-400 truncate">{apt.serviceName || apt.reason || apt.doctorId?.specialty || 'Clinical Consultation'}</p>
+                  </div>
+                  
+                  <div className="text-[11px] text-gray-500 dark:text-slate-400 w-36 shrink-0 truncate">
+                    {apt.providerName || apt.doctorId?.name || 'Pharm. Chinedu Nwankwo'}
+                  </div>
                 </div>
                 
-                <div className="flex-1 truncate">
-                  <h4 className="text-[14px] font-bold text-gray-900 dark:text-white leading-tight mb-0.5 truncate">{apt.patientName}</h4>
-                  <p className="text-[11px] text-gray-500 dark:text-slate-400 truncate">{apt.serviceName || apt.reason || apt.doctorId?.specialty || 'Clinical Consultation'}</p>
-                </div>
-                
-                <div className="text-[11px] text-gray-500 dark:text-slate-400 w-32 shrink-0 hidden sm:block truncate">
-                  {apt.providerName || apt.doctorId?.name || 'Pharm. Chinedu Nwankwo'}
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className={`px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap ${getStatusColor(apt.status)}`}>
+                    {apt.status}
+                  </div>
+                  
+                  <div className="flex items-center gap-2 text-gray-400 dark:text-slate-400">
+                    {apt.status === 'Completed' && role === 'patient' && (
+                      <button 
+                        className="text-yellow-700 bg-yellow-50 hover:bg-yellow-100 border border-yellow-200 px-2.5 py-1 rounded-lg flex items-center gap-1 transition-colors" 
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          setRatingAppointment(apt);
+                        }}
+                        title="Rate Doctor & Service"
+                      >
+                        <Star size={14} className="fill-yellow-400 text-yellow-400" />
+                        <span className="text-[10px] font-bold">
+                          {apt.rating ? `${apt.rating}★` : 'Rate Visit'}
+                        </span>
+                      </button>
+                    )}
+
+                    {apt.status === 'Confirmed' && (
+                      <button 
+                        className="text-primary hover:text-blue-700 transition-colors flex items-center gap-1 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-lg" 
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          setTelemedModal(apt);
+                        }}
+                        title="Join Telemedicine Video Room"
+                      >
+                        <Video size={14} />
+                        <span className="text-[10px] font-bold">Join Call</span>
+                      </button>
+                    )}
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEditingAppointment(apt);
+                      }}
+                      className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 hover:text-gray-700 dark:hover:text-slate-200 transition-colors"
+                      title="Edit Appointment"
+                    >
+                      <Edit2 size={16} />
+                    </button>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeletingAppointment(apt);
+                      }}
+                      className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/40 text-gray-400 hover:text-red-600 transition-colors cursor-pointer"
+                      title="Delete Appointment"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+
+                    {expandedId === apt._id ? (
+                      <ChevronUp size={18} className="text-primary ml-1" />
+                    ) : (
+                      <ChevronDown size={18} className="text-gray-400 ml-1" />
+                    )}
+                  </div>
                 </div>
               </div>
-              
-              <div className="flex items-center gap-3 shrink-0">
-                <div className={`px-3 py-1 rounded-full text-[11px] font-bold ${getStatusColor(apt.status)}`}>
-                  {apt.status}
+
+              {/* MOBILE LAYOUT (sm:hidden) */}
+              <div className="sm:hidden flex flex-col gap-2.5">
+                {/* Top Row: Time & Date on Left, Status Badge & Chevron on Right */}
+                <div className="flex items-center justify-between pb-2 border-b border-gray-100 dark:border-slate-700/60">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-black text-gray-900 dark:text-white">{apt.time}</span>
+                    <span className="text-gray-300 dark:text-slate-600">•</span>
+                    <span className="text-[10px] font-semibold text-gray-500 dark:text-slate-400">{apt.date || 'Today'}</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <div className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide whitespace-nowrap ${getStatusColor(apt.status)}`}>
+                      {apt.status}
+                    </div>
+                    {expandedId === apt._id ? (
+                      <ChevronUp size={16} className="text-primary" />
+                    ) : (
+                      <ChevronDown size={16} className="text-gray-400" />
+                    )}
+                  </div>
                 </div>
-                
-                <div className="flex items-center gap-2 text-gray-400 dark:text-slate-400">
-                  {apt.status === 'Completed' && role === 'patient' && (
-                    <button 
-                      className="text-yellow-700 bg-yellow-50 hover:bg-yellow-100 border border-yellow-200 px-2.5 py-1 rounded-lg flex items-center gap-1 transition-colors" 
-                      onClick={(e) => { 
-                        e.stopPropagation(); 
-                        setRatingAppointment(apt);
+
+                {/* Details & Actions Row */}
+                <div className="flex items-center justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-[13px] font-bold text-gray-900 dark:text-white leading-tight truncate">
+                      {apt.patientName || 'Patient'}
+                    </h4>
+                    <p className="text-[11px] text-gray-500 dark:text-slate-400 truncate mt-0.5">
+                      {apt.serviceName || apt.reason || apt.doctorId?.specialty || 'Clinical Consultation'}
+                    </p>
+                    <p className="text-[10px] text-primary dark:text-cyan-400 font-semibold truncate mt-0.5">
+                      {apt.providerName || apt.doctorId?.name || 'Pharm. Chinedu Nwankwo'}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-1 shrink-0 pt-0.5">
+                    {apt.status === 'Completed' && role === 'patient' && (
+                      <button 
+                        className="text-yellow-700 bg-yellow-50 hover:bg-yellow-100 border border-yellow-200 px-2 py-1 rounded-lg flex items-center gap-1 transition-colors" 
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          setRatingAppointment(apt);
+                        }}
+                        title="Rate Visit"
+                      >
+                        <Star size={12} className="fill-yellow-400 text-yellow-400" />
+                        <span className="text-[9px] font-bold">{apt.rating ? `${apt.rating}★` : 'Rate'}</span>
+                      </button>
+                    )}
+
+                    {apt.status === 'Confirmed' && (
+                      <button 
+                        className="text-primary hover:text-blue-700 bg-blue-50 dark:bg-blue-950/60 p-1.5 rounded-lg flex items-center transition-colors" 
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          setTelemedModal(apt);
+                        }}
+                        title="Join Telemed Video"
+                      >
+                        <Video size={14} />
+                      </button>
+                    )}
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEditingAppointment(apt);
                       }}
-                      title="Rate Doctor & Service"
+                      className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 text-gray-400 hover:text-gray-700 dark:hover:text-slate-200 transition-colors"
+                      title="Edit Appointment"
                     >
-                      <Star size={14} className="fill-yellow-400 text-yellow-400" />
-                      <span className="text-[10px] font-bold">
-                        {apt.rating ? `${apt.rating}★` : 'Rate Visit'}
-                      </span>
+                      <Edit2 size={14} />
                     </button>
-                  )}
 
-                  {apt.status === 'Confirmed' && (
-                    <button 
-                      className="text-primary hover:text-blue-700 transition-colors flex items-center gap-1 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-lg" 
-                      onClick={(e) => { 
-                        e.stopPropagation(); 
-                        setTelemedModal(apt);
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeletingAppointment(apt);
                       }}
-                      title="Join Telemedicine Video Room"
+                      className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/40 text-gray-400 hover:text-red-600 transition-colors cursor-pointer"
+                      title="Delete Appointment"
                     >
-                      <Video size={14} />
-                      <span className="text-[10px] font-bold hidden sm:inline">Join Call</span>
+                      <Trash2 size={14} />
                     </button>
-                  )}
-
-                  {/* Edit Button */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setEditingAppointment(apt);
-                    }}
-                    className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 hover:text-gray-700 dark:hover:text-slate-200 transition-colors"
-                    title="Edit Appointment"
-                  >
-                    <Edit2 size={16} />
-                  </button>
-
-                  {/* Delete Button */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setDeletingAppointment(apt);
-                    }}
-                    className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/40 text-gray-400 hover:text-red-600 transition-colors cursor-pointer"
-                    title="Delete Appointment"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-
-                  {expandedId === apt._id ? (
-                    <ChevronUp size={18} className="text-primary ml-1" />
-                  ) : (
-                    <ChevronDown size={18} className="text-gray-400 ml-1" />
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
             
             {/* Expanded Status Updater */}
             {expandedId === apt._id && (
-              <div className="bg-slate-50 dark:bg-slate-700/40 rounded-2xl p-5 mx-2 -mt-2.5 pt-6 border border-t-0 border-gray-100 dark:border-slate-700 shadow-sm relative z-0">
-                <div className="flex justify-between items-center mb-3">
+              <div className="bg-slate-50 dark:bg-slate-800/90 rounded-2xl p-4 sm:p-5 mx-2 -mt-2.5 pt-5 sm:pt-6 border border-t-0 border-gray-100 dark:border-slate-700 shadow-sm relative z-0">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 mb-3">
                   <h5 className="text-[11px] font-bold text-gray-800 dark:text-slate-200 uppercase tracking-wider">Update Status & Quick Actions</h5>
-                  <span className="text-[11px] text-gray-400">Phone: {apt.phone || 'N/A'} • Email: {apt.email || 'N/A'}</span>
+                  <span className="text-[11px] text-gray-400 break-all sm:break-normal">Phone: {apt.phone || 'N/A'} • Email: {apt.email || 'N/A'}</span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-2 sm:mb-3">
                   {['Confirmed', 'Completed', 'Pending', 'Cancelled'].map((st) => (
                     <button
                       key={st}
