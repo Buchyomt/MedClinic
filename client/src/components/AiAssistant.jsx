@@ -34,22 +34,47 @@ export default function AiAssistant() {
       .catch(err => console.error('AI Assistant doctors fetch error:', err));
   }, []);
 
-  const getInitialGreeting = () => {
+  const getInitialGreeting = useCallback(() => {
     if (role === 'doctor') {
-      return `Hello Dr. ${user?.name?.replace(/^Dr\.\s*/i, '') || 'Doctor'}! 🩺 I am your Clinical AI Copilot. Ask me about drug dosages, antimicrobial guidelines, ICD-10 diagnostic codes, or patient queue insights.`;
+      const docName = user?.name ? `Dr. ${user.name.replace(/^Dr\.\s*/i, '')}` : 'Doctor';
+      return `Hello ${docName}! 🩺 I am your Clinical AI Copilot. Ask me about drug dosages, antimicrobial guidelines, ICD-10 diagnostic codes, or patient queue insights.`;
+    }
+    if (role === 'pharmacist') {
+      const pharmName = user?.name || 'Pharm. Chinedu';
+      return `Hello ${pharmName}! 💊 I am your Clinical Pharmacy & MTM AI Copilot. Ask me about drug interactions, pediatric dosing, NAFDAC verification, or prescription safety reviews.`;
     }
     if (role === 'receptionist') {
       return `Hello ${user?.name || 'Front Desk Coordinator'}! 🏥 I am your Front-Desk AI Assistant. Need help managing walk-in intake, doctor availability rosters, or appointment queues?`;
     }
-    const firstName = user?.name ? user.name.split(' ')[0] : 'there';
-    return `Hello ${firstName}! 👋 I am your MediCare AI Health Assistant.\n\nTell me about your symptoms or medical questions (e.g. body allergies, malaria, skin rashes, chest pain, eye strain), and I'll give you instant clinical insights and direct you to the ideal specialist doctor!`;
-  };
+    // Patient role or guest
+    const patientName = user?.name ? user.name.replace(/^(Dr\.|Pharm\.)\s*/i, '').split(' ')[0] : 'there';
+    return `Hello ${patientName}! 👋 I am your MediCare AI Health Assistant.\n\nTell me about your symptoms or medical questions (e.g. body allergies, malaria, skin rashes, chest pain, eye strain), and I'll give you instant clinical insights and direct you to the ideal specialist doctor!`;
+  }, [user?.name, role]);
 
   const [messages, setMessages] = useState([
     { role: 'ai', text: getInitialGreeting() }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+
+  // Always synchronize initial greeting whenever logged-in user, name, or role changes
+  useEffect(() => {
+    setMessages([
+      { role: 'ai', text: getInitialGreeting() }
+    ]);
+  }, [user?.name, user?.email, role, getInitialGreeting]);
+
+  // When panel is opened, if there's only the welcome message, ensure it matches current user
+  useEffect(() => {
+    if (isOpen) {
+      setMessages(prev => {
+        if (prev.length <= 1) {
+          return [{ role: 'ai', text: getInitialGreeting() }];
+        }
+        return prev;
+      });
+    }
+  }, [isOpen, getInitialGreeting]);
 
   useEffect(() => {
     if (isOpen) {
@@ -138,9 +163,16 @@ export default function AiAssistant() {
 
     // 2. Greetings & Conversational Pleasantries
     if (/^(hi|hello|hey|good\s*(morning|afternoon|evening|day)|greetings|hola|howdy|what's\s*up|yo)\b/i.test(q) && q.length < 35) {
-      const name = user?.name ? user.name.split(' ')[0] : 'friend';
+      let displayName = 'there';
+      if (role === 'doctor') {
+        displayName = user?.name ? `Dr. ${user.name.replace(/^Dr\.\s*/i, '')}` : 'Doctor';
+      } else if (role === 'pharmacist') {
+        displayName = user?.name || 'Pharm. Chinedu';
+      } else if (user?.name) {
+        displayName = user.name.replace(/^(Dr\.|Pharm\.)\s*/i, '').split(' ')[0];
+      }
       return {
-        text: `Hello ${name}! 😊 How can I help you today?\n\nTell me what symptoms or health concerns you are experiencing, and I'll give you accurate clinical guidance and match you with the right specialist doctor.`,
+        text: `Hello ${displayName}! 😊 How can I help you today?\n\nTell me what symptoms or health concerns you are experiencing, and I'll give you accurate clinical guidance and match you with the right specialist doctor.`,
         action: { label: 'Explore Specialists', path: '/' }
       };
     }
@@ -573,7 +605,13 @@ export default function AiAssistant() {
               </div>
               <span className="text-[10px] text-cyan-100 flex items-center gap-1 font-medium">
                 <Sparkles size={10} /> 
-                {role === 'doctor' ? 'Clinical Decision Copilot' : role === 'receptionist' ? 'Front-Desk Operations AI' : 'Smart Clinical Triage & Health AI'}
+                {role === 'doctor' 
+                  ? 'Clinical Decision Copilot' 
+                  : role === 'pharmacist' 
+                  ? 'Clinical Pharmacy & MTM AI' 
+                  : role === 'receptionist' 
+                  ? 'Front-Desk Operations AI' 
+                  : 'Smart Clinical Triage & Health AI'}
               </span>
             </div>
           </div>

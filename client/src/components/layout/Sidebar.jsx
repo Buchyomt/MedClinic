@@ -50,7 +50,7 @@ export default function Sidebar({ isOpen, setIsOpen, isCollapsed, setIsCollapsed
     let mockData = {};
     if (newRole === 'pharmacist') {
       mockData = {
-        name: 'Pharm. Chinedu Nwankwo',
+        name: (user && user.role === 'pharmacist') ? user.name : 'Pharm. Chinedu Nwankwo',
         role: 'pharmacist',
         title: 'Lead Clinical Pharmacist & Director',
         department: 'Your Health Pharmacy (Onitsha)',
@@ -59,7 +59,7 @@ export default function Sidebar({ isOpen, setIsOpen, isCollapsed, setIsCollapsed
       };
     } else if (newRole === 'doctor') {
       mockData = {
-        name: 'Dr. Sarah Jenkins',
+        name: (user && user.role === 'doctor') ? user.name : 'Dr. Sarah Jenkins',
         role: 'doctor',
         title: 'Senior Cardiologist & Consultant',
         department: 'Cardiology Clinic',
@@ -68,7 +68,7 @@ export default function Sidebar({ isOpen, setIsOpen, isCollapsed, setIsCollapsed
       };
     } else if (newRole === 'receptionist') {
       mockData = {
-        name: 'Amara Kalu',
+        name: (user && user.role === 'receptionist') ? user.name : 'Amara Kalu',
         role: 'receptionist',
         title: 'Front-Desk & Dispensary Admin',
         department: 'Patient Administration',
@@ -77,12 +77,12 @@ export default function Sidebar({ isOpen, setIsOpen, isCollapsed, setIsCollapsed
       };
     } else {
       mockData = {
-        name: 'Ade Johnson',
+        name: (user && user.name && !user.name.includes('Dr.') && !user.name.includes('Pharm.')) ? user.name : (user?.name || 'Verified Patient'),
         role: 'patient',
         title: 'Verified Patient',
         department: 'General Outpatient',
         specialty: '',
-        initials: 'AJ'
+        initials: user?.initials || 'PT'
       };
     }
     updateProfile(mockData);
